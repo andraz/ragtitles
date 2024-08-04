@@ -1,0 +1,21 @@
+{
+  "name": "@andraz/ragtitles",
+  "author": "Andraž Kos",
+  "description": "Optimize Subtitles for RAG Ingestion",
+  "version": "0.0.1",
+  "license": "MIT",
+  "module": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "bun src/index.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andraz/ragtitles.git"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "jest": "^29.7.0"
+  }
+}

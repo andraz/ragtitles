@@ -1,4 +1,3 @@
-
 # Ragtitles
 
 **Optimize Subtitles for RAG Ingestion**
@@ -43,23 +42,25 @@ the<00:00:04.520><c> same</c><00:00:04.839><c> fate</c><00:00:05.279><c> shall</
 00:00:06.789 --> 00:00:06.799 align:start position:0%
 the same fate shall we today we're going
  
-`;
+`
 
-const optimizedData = optimizer(vttData);
-console.log(optimizedData);
+const optimizedData = optimizer(vttData)
+console.log(optimizedData)
 ```
 
 **Output:**
 
-```
-0 lost another colony to Raiders let's
-2 make sure the next one doesn't suffer
-4 the same fate shall we today we're going
+```json
+[
+  { "time": 0, "text": "lost another colony to Raiders let's" },
+  { "time": 2, "text": "make sure the next one doesn't suffer" },
+  { "time": 4, "text": "the same fate shall we today we're going" }
+]
 ```
 
 ## Explanation
 
-The `optimizer` function takes raw VTT data as input and returns a string where each line represents a sentence with its corresponding timestamp in seconds. This format is more concise and easier for RAG systems to process.
+The `convert` function takes raw VTT data as input and returns an array of objects, where each object represents a sentence with its corresponding timestamp in seconds. This format is more concise and easier for RAG systems to process.
 
 ## Contributing
 
@@ -70,5 +71,3 @@ Contributions are welcome! Please open an issue or submit a pull request if you 
 MIT
 
 You can do what you wish, but a thanks in your readme is always appreciated.
-
-
