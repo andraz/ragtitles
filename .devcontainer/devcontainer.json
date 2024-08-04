@@ -3,14 +3,16 @@
   "image": "mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm",
   "features": {
     "ghcr.io/michidk/devcontainers-features/bun:1": {},
-    "ghcr.io/devcontainers/features/github-cli:1": {}
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers-contrib/features/yt-dlp:2": {}
   },
   "customizations": {
     "vscode": {
       "extensions": [
         "Orta.vscode-jest",
         "esbenp.prettier-vscode",
-        "Continue.continue"
+        "Continue.continue",
+        "streetsidesoftware.code-spell-checker"
       ],
       "settings": {
         "editor.formatOnSave": true,

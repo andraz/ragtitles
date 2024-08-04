@@ -1,4 +1,4 @@
-const { convert } = require('./src/index.js')
+const convert = require('./index.js')
 
 describe('convert', () => {
   it('should convert VTT data to optimized format', () => {
@@ -6,7 +6,7 @@ describe('convert', () => {
 Kind: captions
 Language: en
 
-00:00:00.000 --> 00:00:02.000
+00:00:00.100 --> 00:00:02.000
 This is the first sentence.
 
 00:00:02.000 --> 00:00:04.000
@@ -55,7 +55,7 @@ This is the second sentence.
     expect(convert(vttData)).toEqual([])
   })
 
-  it('should handle longer time ranges', () => {
+  it('should handle messy overlapping input with extra tags', () => {
     const vttData = `WEBVTT
 Kind: captions
 Language: en
@@ -86,13 +86,80 @@ the same fate shall we today we're going
 `
 
     const expectedOutput = [
-      { time: 0, text: "lost another colony to Raiders let's" },
-      { time: 2, text: "make sure the next one doesn't suffer" },
-      { time: 4, text: "the same fate shall we today we're going" },
+      {
+        time: 0,
+        text: "lost another colony to Raiders let's",
+      },
+      {
+        time: 2,
+        text: "make sure the next one doesn't suffer",
+      },
+      {
+        time: 4,
+        text: "the same fate shall we today we're going",
+      },
     ]
 
     const output = convert(vttData)
 
+    expect(output).toEqual(expectedOutput)
+  })
+
+  it('should handle minutely time ranges', () => {
+    const vttData = `WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:01:00.000
+This is the first sentence.
+
+00:01:00.000 --> 00:02:00.000
+This is the second sentence.
+`
+    const expectedOutput = [
+      { time: 0, text: 'This is the first sentence.' },
+      { time: 60, text: 'This is the second sentence.' },
+    ]
+    const output = convert(vttData)
+    expect(output).toEqual(expectedOutput)
+  })
+
+  it('should handle hourly time ranges', () => {
+    const vttData = `WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 01:00:00.000
+This is the first sentence.
+
+01:00:00.000 --> 02:00:00.000
+This is the second sentence.
+`
+    const expectedOutput = [
+      { time: 0, text: 'This is the first sentence.' },
+      { time: 3600, text: 'This is the second sentence.' },
+    ]
+    const output = convert(vttData)
+    expect(output).toEqual(expectedOutput)
+  })
+
+  it('should handle multiple sentences in a single time range', () => {
+    const vttData = `WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:01:00.000
+This is the first sentence.
+
+This is the second sentence.
+`
+    const expectedOutput = [
+      {
+        time: 0,
+        text: 'This is the first sentence. This is the second sentence.',
+      },
+    ]
+    const output = convert(vttData)
     expect(output).toEqual(expectedOutput)
   })
 })
