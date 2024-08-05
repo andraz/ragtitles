@@ -9,7 +9,6 @@
   "customizations": {
     "vscode": {
       "extensions": [
-        "Orta.vscode-jest",
         "esbenp.prettier-vscode",
         "Continue.continue",
         "streetsidesoftware.code-spell-checker"

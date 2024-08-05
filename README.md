@@ -9,7 +9,7 @@ This format makes timestamped subtitles token-optimized to be suitable for use w
 ## Installation
 
 ```bash
-npm install ragtitles
+bun add ragtitles
 ```
 
 ## Usage
@@ -17,7 +17,7 @@ npm install ragtitles
 ### Ingest the data
 
 ```javascript
-import { convert } from 'ragtitles'
+import convert from 'ragtitles'
 
 const vttData = `WEBVTT
 Kind: captions
@@ -97,6 +97,77 @@ Simply replace the link with one you copied from YouTube:
 If you open this project in a DevContainer `yt-dlp` is automatically installed for you.
 
 To open this project in a DevContainer, just click on the green Code button top right on first page of repository, then pick "Create codespace on main". This will create a new DevContainer of your own. It runs inside of a virtual machine which comes with your GitHub account for free.
+
+## Command line utility
+
+You can run the code directly using `cli.js` utility.
+
+It will take a file path as an argument and print the converted data to the console. If you pass it a YouTube URL it will download the subtitles and convert them.
+
+This will work out of the box in the DevContainer codespace as mentioned above, even when started inside your own browser.
+
+### With VTT file
+
+If you downloaded the file yourself, pass the filename in the command:
+
+```bash
+bun cli.js filename.vtt
+```
+
+### Without VTT file
+
+If you want to download the subtitles from YouTube automatically, just pass the URL as an argument:
+
+```bash
+bun cli.js https://www.youtube.com/watch?v=RuVS7MsQk4Y
+```
+
+Adding the time parameter, will make all lines prefixed with an integer value of seconds from the start of the video.
+
+```bash
+bun cli.js https://www.youtube.com/watch?v=RuVS7MsQk4Y --time
+```
+
+### Example with timestamps
+
+Print first 10 ragtitles of the video:
+
+```bash
+bun cli.js https://www.youtube.com/watch?v=RuVS7MsQk4Y --time | head -n 10
+```
+
+```
+0 this was the very first transistor and
+2 it was made in
+3 1947 by 1978 the industry had Advanced
+6 to integrated circuits with features
+9 just one micrometer large that's 50
+12 times smaller than a human hair and was
+14 done on a machine that cost about $2
+16 million I want to replicate that
+18 capability in my own shop so I'm going
+21 to build a photolithography machine with
+```
+
+You can remove everything after the `|` pipe character in the command, to get the full output.
+
+### Example text snippet from short time after the start of the video
+
+To get rid of the seconds at the start of each line, we remove the `--time` parameter.
+
+We use a combination of `tail` and `head`, to get a snip of text that happens short time after the beginning of the video.
+
+We add `tr` to remove newlines and get a single line of text.
+
+```bash
+bun cli.js https://www.youtube.com/watch?v=RuVS7MsQk4Y | head -n 50 | tail -n 20 | tr '\n' ' '
+```
+
+```
+sensitive resin that's used in SLA printers or the resist that's used to manufacture pcbs the only difference really is in size chips are very small and so the pattern we put on the chip also has to be really small I've dealt with photo lithography a little bit in the past and the Machine I made was well charitably it wasn't very good in fact it was basically unusable other than as a demonstration I've also done some Electron Beam lithography in the past and it's perfect for really small features I've been working on some vacuum transistors that have gaps just a few hundred nanometers wide but my machine isn't really designed for patterning large areas so if you watch my DIY camera sensor video you'll have seen all the issues I had wit
+```
+
+You can tweak the numbers as you wish, to simplify passing quickly just the right amount of the context you need.
 
 ## Contributing
 
