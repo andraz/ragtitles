@@ -169,6 +169,48 @@ sensitive resin that's used in SLA printers or the resist that's used to manufac
 
 You can tweak the numbers as you wish, to simplify passing quickly just the right amount of the context you need.
 
+## Practical use
+
+We can push the output into a simple txt file and then open it in VSCode with a simple one-liner:
+
+```bash
+bun cli.js https://www.youtube.com/watch?v=RuVS7MsQk4Y --time > tmp.txt && code tmp.txt
+```
+
+Prompting the `gemini-1.5-pro-exp-0801` model (https://aistudio.google.com/) with:
+
+```
+using the provided seconds offset prefixed transcript, find the most interesting parts of the video and give me the approximate minute in the video I should focus on and topic in that minute
+
+0 this was the very first transistor and
+2 it was made in
+3 1947 by 1978 the industry had Advanced
+[... rest of transcript ...]
+```
+
+will use ~14_000 cumulative tokens, this number including the response below (~600 tokens).
+
+---
+
+Here are some of the most interesting parts of the video, with approximate minute markers and topics:
+
+- **Minute 1: Introduction and Project Goal:** The creator explains his goal of building a photolithography machine capable of producing 1-micron features, replicating technology from 1978. This sets the stage for the entire video.
+- **Minute 4: Photolithography Explained:** A clear and concise explanation of photolithography, the core process of creating integrated circuits. This is crucial for understanding the purpose of the machine being built.
+- **Minute 8: DMD Deep Dive (Digital Micromirror Device):** The creator delves into the specifics of using a DMD chip from a DLP projector as the heart of his maskless lithography system. This is a fascinating technical detail.
+- **Minute 14: Sheet Metal Construction and Challenges:** The video shows the assembly of the machine's frame from laser-cut sheet metal, highlighting the challenges and learning curve involved.
+- **Minute 17: Introduction of the Zaber XY Stage:** The incredible precision and speed of the Zaber XY stage are showcased. This is a key component that enables the project's accuracy.
+- **Minute 21: First Test Exposures and SEM Results:** The excitement of the first test results is palpable, followed by the analysis of mixed results under a scanning electron microscope.
+- **Minute 25: Troubleshooting and Mechanical Inaccuracies:** The creator meticulously troubleshoots issues with focus and alignment, showcasing the iterative process of engineering.
+- **Minute 30: Plan B - Mask Projection System:** The shift in strategy to build a separate mask projection system is explained, offering insights into the complexities of achieving higher resolution.
+- **Minute 34: Building the Mask Projection System:** The construction of the second machine, using a vintage Zeiss reduction lens, is detailed.
+- **Minute 36: Innovative UV Light Source Design:** The creator's clever use of thin-film light modifiers to create a quasi-collimated UV light source is a highlight.
+- **Minute 40: Redesigning the Alignment Optics:** The struggles and eventual redesign of the alignment optics demonstrate the persistence required in such a project.
+- **Minute 44: Final Results and Qualified Win:** The successful creation of 2-micron features using the two-machine system is a satisfying conclusion, despite not quite reaching the 1-micron goal.
+
+This breakdown should help you navigate the video and focus on the segments that are most relevant to your interests. Enjoy!
+
+---
+
 ## Contributing
 
 Contributions are welcome! Please open an issue or submit a pull request if you have any suggestions or improvements.
