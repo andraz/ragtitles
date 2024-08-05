@@ -7,4 +7,4 @@
 
 const isTimestamp = (line) => line.includes('-->')
 
-module.exports = isTimestamp
+export default isTimestamp

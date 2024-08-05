@@ -49,4 +49,4 @@ const preprocessVTTData = (vttData) => {
   }
 }
 
-module.exports = preprocessVTTData
+export default preprocessVTTData

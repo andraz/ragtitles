@@ -2,23 +2,16 @@
  * @package ragtitles
  */
 
-const isTimestamp = require('./isTimestamp.js')
-const preprocessVTTData = require('./preprocessVTTData.js')
-const convertStartTime = require('./convertStartTime.js')
-
-/**
- * Defines a timestamped sentence object.
- *
- * @typedef {Object} TimestampedSentence
- * @property {number} time - The timestamp in seconds.
- * @property {string} text - The sentence text.
- */
+import isTimestamp from './isTimestamp.js'
+import preprocessVTTData from './preprocessVTTData.js'
+import convertStartTime from './convertStartTime.js'
+import removeLingeringText from './removeLingeringText.js'
 
 /**
  * Parses the VTT data and returns an array of timestamped sentences.
  *
  * @param {string[]} lines - The lines of the VTT data.
- * @returns {TimestampedSentence[]} An array of timestamped sentences.
+ * @returns {import('./types.js').TimestampedSentence[]} An array of timestamped sentences.
  */
 const parseSubtitles = (lines) => {
   let currentSentence = ''
@@ -51,40 +44,12 @@ const parseSubtitles = (lines) => {
 }
 
 /**
- * Removes lingering text from previous timestamps and returns the cleaned lines.
- *
- * @param {TimestampedSentence[]} sentences - The array of timestamped sentences.
- * @returns {TimestampedSentence[]} The cleaned array of timestamped sentences.
- */
-const removeLingeringText = (sentences) => {
-  // Iterate through the sentences array
-  for (let i = 1; i < sentences.length; i++) {
-    // Get the previous and current text
-    const previousText = sentences[i - 1].text
-    const currentText = sentences[i].text
-
-    // Remove the lingering part from the current text
-    sentences[i].text = currentText.replace(previousText, '').trim()
-
-    // Check if the current text is empty after removal
-    if (sentences[i].text === '') {
-      // Remove the current sentence from the array
-      sentences.splice(i, 1)
-      // Decrement the index to account for the removed element
-      i--
-    }
-  }
-  // Return the cleaned sentences array
-  return sentences
-}
-
-/**
  * Converts VTT data to an optimized format that is easier for RAG systems to process.
  *
  * @param {string} vttData - The raw VTT data to convert in string format.
- * @returns {TimestampedSentence[]} An array of timestamped sentences.
+ * @returns {import('./types.js').TimestampedSentence[]} An array of timestamped sentences.
  */
-const convert = (vttData) => {
+export const convert = (vttData) => {
   // Check if input is a string
   if (typeof vttData !== 'string') {
     throw new Error('Input must be a string')
@@ -103,4 +68,4 @@ const convert = (vttData) => {
   }
 }
 
-module.exports = convert
+export default convert

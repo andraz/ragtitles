@@ -102,6 +102,12 @@ To open this project in a DevContainer, just click on the green Code button top 
 
 Contributions are welcome! Please open an issue or submit a pull request if you have any suggestions or improvements.
 
+## Run tests
+
+```bash
+bun test
+```
+
 ## License
 
 MIT

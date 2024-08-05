@@ -1,4 +1,4 @@
-const isTimestamp = require('./isTimestamp.js')
+import isTimestamp from './isTimestamp.js'
 
 /**
  * Converts a start time in the format 'hh:mm:ss.ms' to seconds.
@@ -27,4 +27,4 @@ const convertStartTime = (line) => {
   }
 }
 
-module.exports = convertStartTime
+export default convertStartTime

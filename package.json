@@ -5,15 +5,14 @@
   "module": "src/index.js",
   "type": "module",
   "scripts": {
-    "test": "jest"
+    "test": "bun test"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/andraz/ragtitles.git"
   },
   "devDependencies": {
-    "@types/bun": "latest",
-    "jest": "^29.7.0"
+    "@types/bun": "latest"
   },
   "keywords": [
     "vtt",

@@ -1,4 +1,4 @@
-const convert = require('./index.js')
+import convert from './index.js'
 
 describe('convert', () => {
   it('should convert VTT data to optimized format', () => {
