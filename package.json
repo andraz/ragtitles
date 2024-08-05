@@ -1,13 +1,10 @@
 {
-  "name": "@andraz/ragtitles",
-  "author": "Andraž Kos",
+  "name": "ragtitles",
   "description": "Optimize Subtitles for RAG Ingestion",
-  "version": "0.0.1",
-  "license": "MIT",
+  "version": "1.0.0",
   "module": "src/index.js",
   "type": "module",
   "scripts": {
-    "start": "bun src/index.js",
     "test": "jest"
   },
   "repository": {
@@ -17,5 +14,20 @@
   "devDependencies": {
     "@types/bun": "latest",
     "jest": "^29.7.0"
-  }
+  },
+  "keywords": [
+    "vtt",
+    "youtube",
+    "subtitles",
+    "rag",
+    "llm",
+    "chatgpt",
+    "langchain"
+  ],
+  "author": "Andraž Kos <andraz.kos@gmail.com> (https://github.com/andraz)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andraz/ragtitles/issues"
+  },
+  "homepage": "https://github.com/andraz/ragtitles#readme"
 }

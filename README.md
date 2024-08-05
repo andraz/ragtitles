@@ -9,7 +9,7 @@ This format makes timestamped subtitles token-optimized to be suitable for use w
 ## Installation
 
 ```bash
-npm install @andraz/ragtitles
+npm install ragtitles
 ```
 
 ## Usage
@@ -17,7 +17,7 @@ npm install @andraz/ragtitles
 ### Ingest the data
 
 ```javascript
-import { convert } from '@andraz/ragtitles'
+import { convert } from 'ragtitles'
 
 const vttData = `WEBVTT
 Kind: captions
