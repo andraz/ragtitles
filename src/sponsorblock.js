@@ -63,8 +63,6 @@ const getSegments = async (
       actionTypes: JSON.stringify(actionTypes),
     })}`
 
-    console.log(url)
-
     // Make a GET request to the API URL with the video ID and categories as query parameters
     const response = await axios.get(url)
 
