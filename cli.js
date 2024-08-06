@@ -62,7 +62,10 @@ try {
 }
 
 // convert the file to ragtitles
-const ragtitles = convert(fileContent)
+const ragtitles = await convert(
+  fileContent,
+  isYouTubeLink(argument) ? argument : ''
+)
 
 // print the ragtitles to the console with or without timestamps based on the includeTime flag
 if (includeTime) {

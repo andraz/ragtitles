@@ -6,6 +6,7 @@ import isTimestamp from './isTimestamp.js'
 import preprocessVTTData from './preprocessVTTData.js'
 import convertStartTime from './convertStartTime.js'
 import removeLingeringText from './removeLingeringText.js'
+import removeSpam from './removeSpam.js'
 
 /**
  * Parses the VTT data and returns an array of timestamped sentences.
@@ -47,9 +48,10 @@ const parseSubtitles = (lines) => {
  * Converts VTT data to an optimized format that is easier for RAG systems to process.
  *
  * @param {string} vttData - The raw VTT data to convert in string format.
+ * @param {string} url - The Youtube URL.
  * @returns {import('./types.js').TimestampedSentence[]} An array of timestamped sentences.
  */
-export const convert = (vttData) => {
+export const convert = async (vttData, url) => {
   // Check if input is a string
   if (typeof vttData !== 'string') {
     throw new Error('Input must be a string')
@@ -59,8 +61,15 @@ export const convert = (vttData) => {
     // Preprocess the VTT data
     const processedLines = preprocessVTTData(vttData)
 
-    // Parse the subtitles and return the result
-    return parseSubtitles(processedLines)
+    // Parse the subtitles
+    const parsed = parseSubtitles(processedLines)
+
+    // Remove the spam if we have the Youtube URL for sponsorblock
+    if (url) {
+      return removeSpam(parsed, url)
+    } else {
+      return parsed
+    }
   } catch (error) {
     // Log the error and return an empty array
     console.error('Error converting VTT data:', error)

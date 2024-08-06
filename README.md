@@ -209,7 +209,72 @@ Here are some of the most interesting parts of the video, with approximate minut
 
 This breakdown should help you navigate the video and focus on the segments that are most relevant to your interests. Enjoy!
 
----
+## Filtering spam
+
+Ragtitles filters spam automatically when used with a YouTube URL.
+
+Allowing irrelevant text to enter our pipeline will increase our token costs, fill up our RAG system with irrelevant garbage and mislead LLM with useless noise when copied inline into the context.
+
+We can check where spam appears in the video with:
+
+```bash
+$ bun src/sponsorblock.js https://www.youtube.com/watch?v=UPrkC1LdlLY
+```
+
+```json
+[
+  {
+    "category": "preview",
+    "start": 0,
+    "end": 7
+  },
+  {
+    "category": "preview",
+    "start": 68,
+    "end": 74
+  },
+  {
+    "category": "selfpromo",
+    "start": 296,
+    "end": 323
+  },
+  {
+    "category": "selfpromo",
+    "start": 861,
+    "end": 876
+  },
+  {
+    "category": "preview",
+    "start": 1233,
+    "end": 1238
+  },
+  {
+    "category": "sponsor",
+    "start": 1279,
+    "end": 1326
+  },
+  {
+    "category": "preview",
+    "start": 1483,
+    "end": 1489
+  },
+  {
+    "category": "selfpromo",
+    "start": 1516,
+    "end": 1529
+  },
+  {
+    "category": "filler",
+    "start": 1864,
+    "end": 1868
+  },
+  {
+    "category": "outro",
+    "start": 1935,
+    "end": 1940
+  }
+]
+```
 
 ## Contributing
 
