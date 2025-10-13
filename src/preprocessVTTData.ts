@@ -1,10 +1,10 @@
 /**
  * Preprocess the VTT data by removing data we do not need.
  *
- * @param {string} vttData - The VTT data as a string.
- * @returns {string[]} The preprocessed lines of the VTT data.
+ * @param vttData - The VTT data as a string.
+ * @returns The preprocessed lines of the VTT data.
  */
-const preprocessVTTData = (vttData) => {
+const preprocessVTTData = (vttData: string): string[] => {
   try {
     const lines = vttData.split('\n')
 
@@ -33,7 +33,7 @@ const preprocessVTTData = (vttData) => {
         const [start, end] = line.split(' --> ')
         const startTime = new Date(`1970-01-01T${start}Z`)
         const endTime = new Date(`1970-01-01T${end.split(' ')[0]}Z`)
-        const diff = endTime - startTime
+        const diff = endTime.getTime() - startTime.getTime()
         if (diff < 100) {
           // Skip this line and the next line
           skipNext = true
@@ -41,7 +41,7 @@ const preprocessVTTData = (vttData) => {
       }
       // Add the line to the new array
       return [...acc, line]
-    }, [])
+    }, [] as string[])
 
     return noShortTimestamps
   } catch {

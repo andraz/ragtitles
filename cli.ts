@@ -1,5 +1,6 @@
 import convert from './src/index.js'
 import fs from 'fs'
+import { execSync } from 'child_process'
 
 // parse if the argument passed is a YouTube link or a downloaded file name
 const argument = process.argv[2]
@@ -7,21 +8,25 @@ const argument = process.argv[2]
 // check if we want to include time in the output
 const includeTime = process.argv[3] === '--time'
 
-const isYouTubeLink = (value) => {
+const isYouTubeLink = (value: string): boolean => {
   // Simplified regex to cover common YouTube link formats
   const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/
   return youtubeRegex.test(value)
 }
 
-let fileName
-let fileContent
+let fileName: string
+let fileContent: string
 
 if (isYouTubeLink(argument)) {
   // Load the file using command line, then use it as the filename
-  const { execSync } = require('child_process')
 
   // Extract the video ID from the YouTube link
-  const videoId = argument.match(/(?:v=|\/)([0-9A-Za-z_-]{11}).*/)[1]
+  const videoId = argument.match(/(?:v=|\/)([0-9A-Za-z_-]{11}).*/)?.[1]
+
+  if (!videoId) {
+    console.error('Invalid YouTube URL')
+    process.exit(1)
+  }
 
   // Download the transcript
   const command = `yt-dlp --write-auto-subs --skip-download https://www.youtube.com/watch?v=${videoId}`
@@ -56,7 +61,7 @@ if (!fileName) {
 try {
   // read the file content
   fileContent = fs.readFileSync(fileName, 'utf8')
-} catch (err) {
+} catch (err: any) {
   console.error(`Error reading file: ${err.message}`)
   process.exit(1)
 }

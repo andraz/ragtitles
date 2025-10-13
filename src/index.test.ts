@@ -1,4 +1,5 @@
 import convert from './index.js'
+import type { TimestampedSentence } from './types.js'
 
 describe('convert', () => {
   it('should convert VTT data to optimized format', async () => {
@@ -12,7 +13,7 @@ This is the first sentence.
 00:00:02.000 --> 00:00:04.000
 This is the second sentence.
 `
-    const expectedOutput = [
+    const expectedOutput: TimestampedSentence[] = [
       { time: 0, text: 'This is the first sentence.' },
       { time: 2, text: 'This is the second sentence.' },
     ]
@@ -23,7 +24,7 @@ This is the second sentence.
   })
 
   it('should throw an error if input is not a string', async () => {
-    await expect(convert(123)).rejects.toThrow('Input must be a string')
+    await expect(convert(123 as any)).rejects.toThrow('Input must be a string')
   })
 
   it('should handle empty input', async () => {
@@ -85,7 +86,7 @@ the same fate shall we today we're going
 
 `
 
-    const expectedOutput = [
+    const expectedOutput: TimestampedSentence[] = [
       {
         time: 0,
         text: "lost another colony to Raiders let's",
@@ -116,7 +117,7 @@ This is the first sentence.
 00:01:00.000 --> 00:02:00.000
 This is the second sentence.
 `
-    const expectedOutput = [
+    const expectedOutput: TimestampedSentence[] = [
       { time: 0, text: 'This is the first sentence.' },
       { time: 60, text: 'This is the second sentence.' },
     ]
@@ -135,7 +136,7 @@ This is the first sentence.
 01:00:00.000 --> 02:00:00.000
 This is the second sentence.
 `
-    const expectedOutput = [
+    const expectedOutput: TimestampedSentence[] = [
       { time: 0, text: 'This is the first sentence.' },
       { time: 3600, text: 'This is the second sentence.' },
     ]
@@ -153,7 +154,7 @@ This is the first sentence.
 
 This is the second sentence.
 `
-    const expectedOutput = [
+    const expectedOutput: TimestampedSentence[] = [
       {
         time: 0,
         text: 'This is the first sentence. This is the second sentence.',

@@ -1,8 +1,10 @@
+import type { TimestampedSentence } from './types.js'
+
 /**
  * Removes lingering text from previous timestamps and returns the cleaned lines.
  *
- * @param {import('./types.js').TimestampedSentence[]} sentences - The array of timestamped sentences.
- * @returns {import('./types.js').TimestampedSentence[]} The cleaned array of timestamped sentences.
+ * @param sentences - The array of timestamped sentences.
+ * @returns The cleaned array of timestamped sentences.
  * @example
  * const sentences = [
  *   { time: 0, text: 'Hello, how are you?' },
@@ -18,7 +20,9 @@
  * //   { time: 2, text: 'How about you?' }
  * // ]
  */
-const removeLingeringText = (sentences) => {
+const removeLingeringText = (
+  sentences: TimestampedSentence[],
+): TimestampedSentence[] => {
   // Remove overlaps
   const firstPass = removeOverlaps(sentences)
 
@@ -39,8 +43,8 @@ const removeLingeringText = (sentences) => {
  * It removes any overlapping text from the current sentence's text and trims any leading or trailing whitespace.
  * If the current sentence's text becomes empty after removal, it is removed from the array.
  *
- * @param {import('./types.js').TimestampedSentence[]} sentences - The array of timestamped sentences.
- * @returns {import('./types.js').TimestampedSentence[]} The cleaned array of timestamped sentences.
+ * @param sentences - The array of timestamped sentences.
+ * @returns The cleaned array of timestamped sentences.
  * @example
  * const sentences = [
  *   { time: 0, text: 'Hello, how are you?' },
@@ -48,7 +52,6 @@ const removeLingeringText = (sentences) => {
  *   { time: 2, text: 'I am fine, thank you. How about you?' }
  * ]
  * const cleanedSentences = removeOverlaps(sentences)
- * console.log(cleanedSentences)
  * // Output:
  * // [
  * //   { time: 0, text: 'Hello, how are you?' },
@@ -56,7 +59,9 @@ const removeLingeringText = (sentences) => {
  * //   { time: 2, text: 'How about you?' }
  * // ]
  */
-const removeOverlaps = (sentences) => {
+const removeOverlaps = (
+  sentences: TimestampedSentence[],
+): TimestampedSentence[] => {
   // Iterate through the sentences array
   for (let i = 1; i < sentences.length; i++) {
     // Get the previous and current text
@@ -81,13 +86,16 @@ const removeOverlaps = (sentences) => {
 
 /**
  * Deduplicates text by removing sentences that have a significant overlap with the previous line.
- * @param {import('./types.js').TimestampedSentence[]} sentences - The array of timestamped sentences.
- * @param {number} [threshold=0.8] The overlap threshold (0-1).
- * @returns {import('./types.js').TimestampedSentence[]} The deduplicated array of timestamped sentences.
+ * @param sentences - The array of timestamped sentences.
+ * @param threshold - The overlap threshold (0-1).
+ * @returns The deduplicated array of timestamped sentences.
  */
-const deduplicateText = (sentences, threshold = 0.8) => {
+const deduplicateText = (
+  sentences: TimestampedSentence[],
+  threshold: number = 0.8,
+): TimestampedSentence[] => {
   // Initialize an empty array to store the result
-  const result = []
+  const result: TimestampedSentence[] = []
 
   // Iterate through the sentences array
   for (const sentence of sentences) {
@@ -99,14 +107,15 @@ const deduplicateText = (sentences, threshold = 0.8) => {
   // Return the result array
   return result
 }
+
 /**
  * Returns the intersection of two sets.
- * @param {Set} setA The first set.
- * @param {Set} setB The second set.
- * @returns {Set} The intersection of the two sets.
+ * @param setA - The first set.
+ * @param setB - The second set.
+ * @returns The intersection of the two sets.
  */
-const intersection = (setA, setB) => {
-  const intersectionSet = new Set()
+const intersection = <T>(setA: Set<T>, setB: Set<T>): Set<T> => {
+  const intersectionSet = new Set<T>()
   for (const elem of setB) {
     if (setA.has(elem)) {
       intersectionSet.add(elem)

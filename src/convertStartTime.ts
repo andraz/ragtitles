@@ -4,9 +4,9 @@ import isTimestamp from './isTimestamp.js'
  * Converts a start time in the format 'hh:mm:ss.ms' to seconds.
  *
  * @param {string} line - The line containing the timestamp.
- * @returns {number} The start time in seconds.
+ * @returns {number | null} The start time in seconds, or null if invalid.
  */
-const convertStartTime = (line) => {
+const convertStartTime = (line: string): number | null => {
   // Sanity check
   if (!isTimestamp(line)) {
     return null
@@ -20,7 +20,7 @@ const convertStartTime = (line) => {
     const [hours, minutes, seconds] = startTime.split(':').map(parseFloat)
 
     // Calculate the total number of seconds
-    return hours * 3600 + minutes * 60 + parseInt(seconds, 10)
+    return hours * 3600 + minutes * 60 + parseInt(seconds.toString(), 10)
   } catch (error) {
     console.error('Error parsing start time:', error)
     return null

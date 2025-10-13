@@ -8,10 +8,10 @@ const API_URL = 'https://sponsor.ajay.app/api/skipSegments'
 /**
  * Extracts the video ID from a given YouTube URL.
  *
- * @param {string} youtubeURL - The YouTube URL from which to extract the video ID.
- * @returns {string|null} - The extracted video ID, or null if no match is found.
+ * @param youtubeURL - The YouTube URL from which to extract the video ID.
+ * @returns The extracted video ID, or null if no match is found.
  */
-const extractVideoID = (youtubeURL) => {
+const extractVideoID = (youtubeURL: string): string | null => {
   // Split the URL by 'v=' and take the second part
   const videoID = youtubeURL.split('v=')[1]
 
@@ -24,18 +24,24 @@ const extractVideoID = (youtubeURL) => {
   return videoID.split('&')[0]
 }
 
+interface Segment {
+  category: string
+  start: number
+  end: number
+}
+
 /**
  * Retrieves the skip segments for a given YouTube video.
  *
- * @param {string} youtubeURL - The YouTube URL for which to retrieve skip segments.
- * @param {string[]} [categories=['sponsor']] - An optional array of categories for which to retrieve segments.
- * @returns {Promise<object[]>} - A promise that resolves to an array of segment objects.
- * @throws {Error} - Throws an error if the YouTube URL is invalid or if there is an error fetching data from the API.
+ * @param youtubeURL - The YouTube URL for which to retrieve skip segments.
+ * @param categories - An optional array of categories for which to retrieve segments.
+ * @param actionTypes - An optional array of action types.
+ * @returns A promise that resolves to an array of segment objects.
+ * @throws Throws an error if the YouTube URL is invalid or if there is an error fetching data from the API.
  */
-
 const getSegments = async (
-  youtubeURL,
-  categories = [
+  youtubeURL: string,
+  categories: string[] = [
     'sponsor',
     'intro',
     'outro',
@@ -45,8 +51,8 @@ const getSegments = async (
     'preview',
     'filler',
   ],
-  actionTypes = ['skip']
-) => {
+  actionTypes: string[] = ['skip'],
+): Promise<Segment[]> => {
   // Extract the video ID from the YouTube URL
   const videoID = extractVideoID(youtubeURL)
 
@@ -69,12 +75,12 @@ const getSegments = async (
     // If the response status code is not 200, throw an error
     if (response.status !== 200) {
       throw new Error(
-        `SponsorBlock API returned status code ${response.status}`
+        `SponsorBlock API returned status code ${response.status}`,
       )
     }
 
     // Clean up the unneeded data
-    const cleanedSegments = response.data.map((segment) => {
+    const cleanedSegments: Segment[] = response.data.map((segment: any) => {
       return {
         category: segment.category,
         start: Math.floor(parseFloat(segment.segment[0])),
@@ -84,7 +90,7 @@ const getSegments = async (
 
     // Return the array of segment objects from the response data
     return cleanedSegments
-  } catch (error) {
+  } catch (error: any) {
     // If there is an error fetching data from the API, print a warning and return an empty array
     console.warn(`Error fetching SponsorBlock data: ${error.message}`)
     return []
@@ -106,10 +112,10 @@ if (import.meta.url === pathToFileURL(process.argv[1]).href) {
       try {
         const segments = await getSegments(process.argv[2])
         console.log(segments)
-      } catch (error) {
+      } catch (error: any) {
         if (error.response && error.response.status !== 200) {
           console.error(
-            `SponsorBlock API returned status code ${error.response.status}`
+            `SponsorBlock API returned status code ${error.response.status}`,
           )
         } else {
           console.error(`Error fetching SponsorBlock data: ${error.message}`)

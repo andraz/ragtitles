@@ -1,15 +1,25 @@
+import type { TimestampedSentence } from './types.js'
+import getSegments from './sponsorblock.js'
+
+interface Segment {
+  category: string
+  start: number
+  end: number
+}
+
 /**
  * Removes spam to retain only the useful text from the given array of timestamped sentences.
  *
- * @param {import('./types.js').TimestampedSentence[]} sentences - Raw array of timestamped sentences.
+ * @param sentences - Raw array of timestamped sentences.
  * @param url - The URL of the video.
- * @returns {import('./types.js').TimestampedSentence[]} The cleaned array of timestamped sentences.
+ * @returns The cleaned array of timestamped sentences.
  */
-import getSegments from './sponsorblock.js'
-
-const removeSpam = async (sentences, url) => {
+const removeSpam = async (
+  sentences: TimestampedSentence[],
+  url: string,
+): Promise<TimestampedSentence[]> => {
   // Get the sponsor segments for the video using the sponsorblock API
-  const segments = await getSegments(url)
+  const segments = (await getSegments(url)) as Segment[]
 
   // Filter out sentences that fall within any of the sponsor segments
   const cleanedSentences = sentences.filter(({ time }) => {

@@ -7,17 +7,18 @@ import preprocessVTTData from './preprocessVTTData.js'
 import convertStartTime from './convertStartTime.js'
 import removeLingeringText from './removeLingeringText.js'
 import removeSpam from './removeSpam.js'
+import type { TimestampedSentence } from './types.js'
 
 /**
  * Parses the VTT data and returns an array of timestamped sentences.
  *
- * @param {string[]} lines - The lines of the VTT data.
- * @returns {import('./types.js').TimestampedSentence[]} An array of timestamped sentences.
+ * @param lines - The lines of the VTT data.
+ * @returns An array of timestamped sentences.
  */
-const parseSubtitles = (lines) => {
+const parseSubtitles = (lines: string[]): TimestampedSentence[] => {
   let currentSentence = ''
-  let currentTimestamp = null
-  let output = []
+  let currentTimestamp: number | null = null
+  let output: TimestampedSentence[] = []
 
   for (let i = 0; i < lines.length; i++) {
     if (isTimestamp(lines[i])) {
@@ -47,11 +48,14 @@ const parseSubtitles = (lines) => {
 /**
  * Converts VTT data to an optimized format that is easier for RAG systems to process.
  *
- * @param {string} vttData - The raw VTT data to convert in string format.
- * @param {string} url - The Youtube URL.
- * @returns {import('./types.js').TimestampedSentence[]} An array of timestamped sentences.
+ * @param vttData - The raw VTT data to convert in string format.
+ * @param url - The Youtube URL.
+ * @returns An array of timestamped sentences.
  */
-export const convert = async (vttData, url) => {
+export const convert = async (
+  vttData: string,
+  url?: string,
+): Promise<TimestampedSentence[]> => {
   // Check if input is a string
   if (typeof vttData !== 'string') {
     throw new Error('Input must be a string')
@@ -70,7 +74,7 @@ export const convert = async (vttData, url) => {
     } else {
       return parsed
     }
-  } catch (error) {
+  } catch (error: any) {
     // Log the error and return an empty array
     console.error('Error converting VTT data:', error)
     return []

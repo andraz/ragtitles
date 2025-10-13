@@ -1,13 +1,14 @@
 import removeLingeringText from './removeLingeringText.js'
+import type { TimestampedSentence } from './types.js'
 
 describe('removeLingeringText', () => {
   it('should remove lingering text from previous timestamps', () => {
-    const sentences = [
+    const sentences: TimestampedSentence[] = [
       { time: 0, text: 'Hello, how are you?' },
       { time: 1, text: 'Hello, how are you? I am fine, thank you.' },
       { time: 2, text: 'I am fine, thank you. How about you?' },
     ]
-    const expectedOutput = [
+    const expectedOutput: TimestampedSentence[] = [
       { time: 0, text: 'Hello, how are you?' },
       { time: 1, text: 'I am fine, thank you.' },
       { time: 2, text: 'How about you?' },
@@ -23,12 +24,12 @@ describe('removeLingeringText', () => {
   })
 
   it('should handle input with no lingering text', () => {
-    const sentences = [
+    const sentences: TimestampedSentence[] = [
       { time: 0, text: 'Hello, how are you?' },
       { time: 1, text: 'I am fine, thank you.' },
       { time: 2, text: 'How about you?' },
     ]
-    const expectedOutput = [
+    const expectedOutput: TimestampedSentence[] = [
       { time: 0, text: 'Hello, how are you?' },
       { time: 1, text: 'I am fine, thank you.' },
       { time: 2, text: 'How about you?' },
@@ -40,12 +41,14 @@ describe('removeLingeringText', () => {
   })
 
   it('should handle input with complete lingering text', () => {
-    const sentences = [
+    const sentences: TimestampedSentence[] = [
       { time: 0, text: 'Hello, how are you?' },
       { time: 1, text: 'Hello, how are you?' },
       { time: 2, text: 'Hello, how are you?' },
     ]
-    const expectedOutput = [{ time: 0, text: 'Hello, how are you?' }]
+    const expectedOutput: TimestampedSentence[] = [
+      { time: 0, text: 'Hello, how are you?' },
+    ]
 
     const output = removeLingeringText(sentences)
 
@@ -53,12 +56,12 @@ describe('removeLingeringText', () => {
   })
 
   it('should handle input with partial lingering text', () => {
-    const sentences = [
+    const sentences: TimestampedSentence[] = [
       { time: 0, text: 'Hello, how are you?' },
       { time: 1, text: 'Hello, how are you? I am fine.' },
       { time: 2, text: 'I am fine. How about you?' },
     ]
-    const expectedOutput = [
+    const expectedOutput: TimestampedSentence[] = [
       { time: 0, text: 'Hello, how are you?' },
       { time: 1, text: 'I am fine.' },
       { time: 2, text: 'How about you?' },
