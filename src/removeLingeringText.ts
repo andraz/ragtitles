@@ -1,4 +1,4 @@
-import type { TimestampedSentence } from './types.js'
+import type { TimestampedSentence } from './types'
 
 /**
  * Removes lingering text from previous timestamps and returns the cleaned lines.

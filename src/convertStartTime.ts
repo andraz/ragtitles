@@ -1,4 +1,4 @@
-import isTimestamp from './isTimestamp.js'
+import isTimestamp from './isTimestamp'
 
 /**
  * Converts a start time in the format 'hh:mm:ss.ms' to seconds.

@@ -1,5 +1,5 @@
-import convert from './index.js'
-import type { TimestampedSentence } from './types.js'
+import convert from './index'
+import type { TimestampedSentence } from './types'
 
 describe('convert', () => {
   it('should convert VTT data to optimized format', async () => {

@@ -1,4 +1,4 @@
-import convert from './src/index.js'
+import convert from './src/index'
 import fs from 'fs'
 import { execSync } from 'child_process'
 

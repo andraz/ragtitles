@@ -2,12 +2,12 @@
  * @package ragtitles
  */
 
-import isTimestamp from './isTimestamp.js'
-import preprocessVTTData from './preprocessVTTData.js'
-import convertStartTime from './convertStartTime.js'
-import removeLingeringText from './removeLingeringText.js'
-import removeSpam from './removeSpam.js'
-import type { TimestampedSentence } from './types.js'
+import isTimestamp from './isTimestamp'
+import preprocessVTTData from './preprocessVTTData'
+import convertStartTime from './convertStartTime'
+import removeLingeringText from './removeLingeringText'
+import removeSpam from './removeSpam'
+import type { TimestampedSentence } from './types'
 
 /**
  * Parses the VTT data and returns an array of timestamped sentences.

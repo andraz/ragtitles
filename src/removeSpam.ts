@@ -1,5 +1,5 @@
-import type { TimestampedSentence } from './types.js'
-import getSegments from './sponsorblock.js'
+import type { TimestampedSentence } from './types'
+import getSegments from './sponsorblock'
 
 interface Segment {
   category: string

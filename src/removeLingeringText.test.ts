@@ -1,5 +1,5 @@
-import removeLingeringText from './removeLingeringText.js'
-import type { TimestampedSentence } from './types.js'
+import removeLingeringText from './removeLingeringText'
+import type { TimestampedSentence } from './types'
 
 describe('removeLingeringText', () => {
   it('should remove lingering text from previous timestamps', () => {
