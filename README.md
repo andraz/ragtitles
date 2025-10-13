@@ -9,7 +9,7 @@ This format makes timestamped subtitles token-optimized to be suitable for use w
 ## Installation
 
 ```bash
-bun add ragtitles
+npm install ragtitles
 ```
 
 ## Usage
@@ -86,10 +86,12 @@ The `convert` function takes raw VTT data as input and returns an array of objec
 
 Use `yt-dlp` in the terminal.
 
+If `yt-dlp` is not installed globally on your system, use `python -m yt_dlp` or install it with `pip install yt-dlp`.
+
 Simply replace the link with one you copied from YouTube:
 
 ```bash
- yt-dlp https://www.youtube.com/watch?v=qrbhlNPSwzY --write-auto-subs --skip-download
+python -m yt_dlp https://www.youtube.com/watch?v=qrbhlNPSwzY --write-auto-subs --skip-download
 ```
 
 ### DevContainer codespace
@@ -111,7 +113,7 @@ This will work out of the box in the DevContainer codespace as mentioned above, 
 If you downloaded the file yourself, pass the filename in the command:
 
 ```bash
-bun cli.js filename.vtt
+npx tsx cli.ts filename.vtt
 ```
 
 ### Without VTT file
@@ -119,13 +121,13 @@ bun cli.js filename.vtt
 If you want to download the subtitles from YouTube automatically, just pass the URL as an argument:
 
 ```bash
-bun cli.js https://www.youtube.com/watch?v=RuVS7MsQk4Y
+npx tsx cli.ts https://www.youtube.com/watch?v=RuVS7MsQk4Y
 ```
 
 Adding the time parameter, will make all lines prefixed with an integer value of seconds from the start of the video.
 
 ```bash
-bun cli.js https://www.youtube.com/watch?v=RuVS7MsQk4Y --time
+npx tsx cli.ts https://www.youtube.com/watch?v=RuVS7MsQk4Y --time
 ```
 
 ### Example with timestamps
@@ -133,7 +135,7 @@ bun cli.js https://www.youtube.com/watch?v=RuVS7MsQk4Y --time
 Print first 10 ragtitles of the video:
 
 ```bash
-bun cli.js https://www.youtube.com/watch?v=RuVS7MsQk4Y --time | head -n 10
+npx tsx cli.ts https://www.youtube.com/watch?v=RuVS7MsQk4Y --time | head -n 10
 ```
 
 ```
@@ -160,7 +162,7 @@ We use a combination of `tail` and `head`, to get a snip of text that happens sh
 We add `tr` to remove newlines and get a single line of text.
 
 ```bash
-bun cli.js https://www.youtube.com/watch?v=RuVS7MsQk4Y | head -n 50 | tail -n 20 | tr '\n' ' '
+npx tsx cli.ts https://www.youtube.com/watch?v=RuVS7MsQk4Y | head -n 50 | tail -n 20 | tr '\n' ' '
 ```
 
 ```
@@ -174,7 +176,7 @@ You can tweak the numbers as you wish, to simplify passing quickly just the righ
 We can push the output into a simple txt file and then open it in VSCode with a simple one-liner:
 
 ```bash
-bun cli.js https://www.youtube.com/watch?v=RuVS7MsQk4Y --time > tmp.txt && code tmp.txt
+npx tsx cli.ts https://www.youtube.com/watch?v=RuVS7MsQk4Y --time > tmp.txt && code tmp.txt
 ```
 
 Prompting the `gemini-1.5-pro-exp-0801` model (https://aistudio.google.com/) with:
@@ -218,7 +220,7 @@ Allowing irrelevant text to enter our pipeline will increase our token costs, fi
 We can check where spam appears in the video with:
 
 ```bash
-$ bun src/sponsorblock.js https://www.youtube.com/watch?v=UPrkC1LdlLY
+$ npx tsx src/sponsorblock.ts https://www.youtube.com/watch?v=UPrkC1LdlLY
 ```
 
 ```json
@@ -283,7 +285,7 @@ Contributions are welcome! Please open an issue or submit a pull request if you 
 ## Run tests
 
 ```bash
-bun test
+npm test
 ```
 
 ## License

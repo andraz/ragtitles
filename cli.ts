@@ -29,7 +29,7 @@ if (isYouTubeLink(argument)) {
   }
 
   // Download the transcript
-  const command = `yt-dlp --write-auto-subs --skip-download https://www.youtube.com/watch?v=${videoId}`
+  const command = `python -m yt_dlp --write-auto-subs --skip-download https://www.youtube.com/watch?v=${videoId}`
 
   execSync(command, { stdio: 'ignore' })
 
