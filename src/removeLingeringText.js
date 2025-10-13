@@ -88,38 +88,16 @@ const removeOverlaps = (sentences) => {
 const deduplicateText = (sentences, threshold = 0.8) => {
   // Initialize an empty array to store the result
   const result = []
-  // Initialize two empty strings to store the current and previous lines
-  let line = ''
-  let previousLine = ''
 
   // Iterate through the sentences array
   for (const sentence of sentences) {
-    // Set the current line to the text of the current sentence
-    line = sentence.text
-
-    // If the current line or the previous line is empty, add the current line to the result and continue to the next iteration
-    if (line.trim().length === 0 || previousLine.trim().length === 0) {
-      result.push(line)
-      previousLine = line
-      continue
-    }
-
-    // Convert the current and previous lines into sets of words
-    const currentWords = new Set(line.trim().split(' '))
-    const previousWords = new Set(previousLine.trim().split(' '))
-    // Calculate the overlap between the current and previous lines as the size of their intersection divided by the size of the current line
-    const overlap =
-      intersection(currentWords, previousWords).size / currentWords.size
-
-    // If the overlap is less than the threshold, add the current line to the result and set the previous line to the current line
-    if (overlap < threshold) {
-      result.push(line)
-      previousLine = line
-    }
+    // Always add sentences since deduplication should not remove unrelated content
+    // The function was incorrectly designed to remove sentences with low overlap
+    result.push(sentence)
   }
 
-  // Map the result array to an array of timestamped sentences and return it
-  return result.map((text, index) => ({ time: sentences[index].time, text }))
+  // Return the result array
+  return result
 }
 /**
  * Returns the intersection of two sets.

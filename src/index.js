@@ -66,7 +66,7 @@ export const convert = async (vttData, url) => {
 
     // Remove the spam if we have the Youtube URL for sponsorblock
     if (url) {
-      return removeSpam(parsed, url)
+      return await removeSpam(parsed, url)
     } else {
       return parsed
     }
